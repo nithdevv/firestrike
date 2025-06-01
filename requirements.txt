@@ -1,0 +1,20 @@
+# Core dependencies
+numpy==1.24.3
+matplotlib==3.7.1
+pygame==2.5.0
+
+# Cryptography and security
+cryptography>=41.0.7  # For AES encryption
+stem>=1.8.2          # TOR control
+pysocks>=1.7.1       # SOCKS proxy support
+
+# Testing
+pytest>=7.4.3        # Testing framework
+pytest-asyncio>=0.21.1  # Async test support
+psutil>=5.9.6        # Process and system monitoring
+
+# Utilities
+aiohttp>=3.9.1       # Async HTTP client/server
+click>=8.1.7         # Command line interface
+rich>=13.7.0         # Rich text and formatting
+tqdm>=4.66.1         # Progress bars 

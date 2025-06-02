@@ -1,114 +1,70 @@
-# FireStrike
+# FireStrike - Децентрализованная DHT-сеть
 
-FireStrike is a decentralized anonymous file sharing network operating through TOR. The project provides secure and anonymous file sharing using DHT for distributed storage and magnet links for file access.
+Это реализация децентрализованной хеш-таблицы (DHT) для обмена файлами в распределенной сети. Проект обеспечивает безопасное хранение и поиск данных.
 
-## Features
+## Особенности
 
-- **Anonymity**: All connections are made through TOR
-- **Decentralization**: Using DHT for distributed storage
-- **Encryption**: AES-256-CBC with random IV for each file
-- **Magnet Links**: Convenient format `firestrike://<hash>#<key>`
-- **CLI Interface**: Simple and functional command interface
+- Прямые P2P соединения через TCP/IP
+- Хеширование файлов с использованием SHA-3 и соли
+- Асимметричное шифрование для обмена сообщениями
+- Автоматическое обнаружение пиров в сети
+- Распределенное хранение данных
 
-## Requirements
+## Требования
 
-- Python 3.8+
-- TOR
-- Dependencies from requirements.txt
+- Python 3.7+
+- Зависимости Python из requirements.txt
 
-## Installation
+## Установка
 
-1. Clone the repository:
+1. Установите зависимости Python:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## Использование
+
+1. Запуск узла:
+   ```bash
+   python -m firestrike --port 8788
+   ```
+
+2. Загрузка файла:
+   ```bash
+   firestrike upload path/to/file
+   ```
+
+3. Скачивание файла:
+   ```bash
+   firestrike download <hash> --output path/to/save
+   ```
+
+4. Просмотр подключенных пиров:
+   ```bash
+   firestrike peers
+   ```
+
+## Безопасность
+
+- Все файлы шифруются перед отправкой
+- Используется асимметричное шифрование для обмена ключами
+- Хеширование файлов с солью для защиты от атак
+- Проверка целостности данных
+
+## Настройка портов
+
+По умолчанию узел использует порт 8788. Вы можете изменить его при запуске:
 ```bash
-git clone https://github.com/yourusername/firestrike.git
-cd firestrike
+firestrike --port 8789
 ```
 
-2. Create and activate virtual environment:
+## Временные файлы
+
+Для хранения временных файлов используется директория `firestrike_temp`. 
+Вы можете изменить её расположение с помощью опции `--temp`:
 ```bash
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-venv\Scripts\activate     # Windows
+firestrike --temp /path/to/temp
 ```
-
-3. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-4. Make sure TOR is installed and running on your system.
-
-## Usage
-
-### Upload File
-
-```bash
-python -m firestrike upload path/to/file
-```
-
-Options:
-- `--temp`: Delete file after upload
-- `--port PORT`: Use specified port (default 8789)
-
-### Download File
-
-```bash
-python -m firestrike download "firestrike://hash#key"
-```
-
-Options:
-- `--output PATH`: Path to save file
-- `--temp`: Delete file after completion
-- `--port PORT`: Use specified port
-
-### View Peers
-
-```bash
-python -m firestrike peers
-```
-
-## Architecture
-
-### DHT Network via TOR (`hidden_service.py`)
-
-- Creation of hidden services with .onion addresses
-- SOCKS5 proxy for anonymous connections
-- Secure logging without IP disclosure
-- P2P data exchange between nodes
-
-### File Encryption (`file_encryptor.py`)
-
-- AES-256-CBC encryption with random IV
-- SHA3-256 hashing with salt
-- Magnet link generation
-- Secure key storage
-
-### CLI Client (`cli.py`)
-
-- Upload/download commands
-- Asynchronous operation processing
-- Temporary file support
-- Node management
-
-## Security
-
-- All connections are made through TOR
-- Files are encrypted on client side
-- Keys are not transmitted over network
-- Support for secure file deletion
-
-## Testing
-
-Run tests:
-```bash
-pytest tests/
-```
-
-Tests include:
-- Encryption/decryption verification
-- DHT testing in isolated network
-- Memory leak control
-- Automated fixtures
 
 ## License
 
